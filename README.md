@@ -26,21 +26,21 @@ iv.	evaluate the performance of the developed system.
 
 import pandas as pd
 
-# Load the dataset
+Load the dataset
 file_path = 'DAVE UML.xlsx'
 data = pd.read_excel(file_path)
 
-# Display the first few rows of the dataset
+Display the first few rows of the dataset
 data.head()
 
 ```
 ```
 ## Data Cleaning 
 
-# Check for missing values
+Check for missing values
 missing_values = data.isnull().sum()
 
-# Get basic statistics of the dataset
+Get basic statistics of the dataset
 data_statistics = data.describe()
 
 missing_values, data_statistics
@@ -51,18 +51,18 @@ missing_values, data_statistics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-# Define features and target variable
+Define features and target variable
 features = data[['Cement (kg/m3)', 'Sand (kg/m3)', 'Granite (kg/m3)', 'Age (days)', 'Water (kg/m3)', 'Slump (mm)', 'Density (kg/m3)', 'Compressive strength (N/mm2)']]
 target = data['w/c']
 
-# Normalize the features
+Normalize the features
 scaler = StandardScaler()
 normalized_features = scaler.fit_transform(features)
 
-# Train-Test Split
+Train-Test Split
 X_train, X_test, y_train, y_test = train_test_split(normalized_features, target, test_size=0.2, random_state=42)
 
-# Display the shapes of the resulting datasets
+Display the shapes of the resulting datasets
 (X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
 ```
@@ -74,22 +74,22 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
-# Define the neural network architecture
+ Define the neural network architecture
 model = Sequential()
 
-# Input layer and first hidden layer
+ Input layer and first hidden layer
 model.add(Dense(64, input_dim=8, activation='relu'))
 
-# Second hidden layer
+ Second hidden layer
 model.add(Dense(32, activation='relu'))
 
-# Third hidden layer
+ Third hidden layer
 model.add(Dense(16, activation='relu'))
 
-# Output layer
+ Output layer
 model.add(Dense(1, activation='linear'))
 
-# Display the summary of the model
+ Display the summary of the model
 model.summary()
 ```
 ```
@@ -100,7 +100,7 @@ model.compile(
     metrics=['mean_absolute_error']
 )
 
-# Display the model summary again to confirm the compilation
+ Display the model summary again to confirm the compilation
 model.summary()
 ```
 
@@ -128,13 +128,13 @@ print(f'Test MAE: {test_mae}')
 ## Save the model in the recommended Keras format
 model.save('water_cement_ratio_predictor.keras')
 
-# Load the model
+Load the model
 loaded_model = tf.keras.models.load_model('water_cement_ratio_predictor.keras')
 
-# Example prediction
+Example prediction
 import numpy as np
 
-# Assuming new_data is a numpy array with shape (1, 8) representing a single new sample
+Assuming new_data is a numpy array with shape (1, 8) representing a single new sample
 new_data = np.array([[300, 700, 1400, 14, 200, 20, 2400, 18]])
 new_data_normalized = scaler.transform(new_data)
 prediction = loaded_model.predict(new_data_normalized)
@@ -145,7 +145,7 @@ print(f'Predicted Water-Cement Ratio: {prediction[0][0]}')
 
 ## import matplotlib.pyplot as plt
 
-# Plot training & validation loss values
+Plot training & validation loss values
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
@@ -161,7 +161,7 @@ plt.show()
 ## Make predictions on the test set
 predictions = loaded_model.predict(X_test)
 
-# Plot predicted vs actual values
+Plot predicted vs actual values
 plt.figure(figsize=(10, 5))
 plt.scatter(y_test, predictions)
 plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r')
@@ -176,10 +176,10 @@ plt.show()
 
 ## import matplotlib.pyplot as plt
 
-# Make predictions on the test set
+Make predictions on the test set
 predictions = loaded_model.predict(X_test)
 
-# Plot predicted vs actual values
+Plot predicted vs actual values
 plt.figure(figsize=(10, 5))
 plt.scatter(y_test, predictions)
 plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r')
@@ -193,20 +193,20 @@ plt.show()
 ## import numpy as np
 import pandas as pd
 
-# Assume 'scaler' is the StandardScaler used earlier, and the target was not scaled
+Assume 'scaler' is the StandardScaler used earlier, and the target was not scaled
 
-# Check the original scale of the target 'w/c'
-# Normally, if the scaler was applied to the features, predictions should not need rescaling
+ Check the original scale of the target 'w/c'
+ Normally, if the scaler was applied to the features, predictions should not need rescaling
 
-# For demonstration, here's how to manually adjust predictions if needed
-# If predictions need to be within the range [min_actual, max_actual]
+For demonstration, here's how to manually adjust predictions if needed
+If predictions need to be within the range [min_actual, max_actual]
 min_actual = data['w/c'].min()
 max_actual = data['w/c'].max()
 
-# Scale the predictions back to the [min_actual, max_actual] range
+Scale the predictions back to the [min_actual, max_actual] range
 predictions_rescaled = np.interp(predictions.flatten(), (predictions.min(), predictions.max()), (min_actual, max_actual))
 
-# Create a DataFrame with actual and rescaled predicted values
+Create a DataFrame with actual and rescaled predicted values
 results_rescaled = pd.DataFrame({
     'Actual': y_test,
     'Predicted': predictions_rescaled
@@ -232,7 +232,7 @@ plt.show()
 
 ## import matplotlib.pyplot as plt
 
-# Plot training & validation loss values
+Plot training & validation loss values
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['loss'], label='Train Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')
@@ -257,7 +257,7 @@ plt.show()
 ## Calculate residuals
 residuals = y_test - predictions_rescaled
 
-# Plot residuals
+Plot residuals
 plt.figure(figsize=(10, 5))
 plt.scatter(y_test, residuals)
 plt.axhline(0, color='red', linestyle='--')

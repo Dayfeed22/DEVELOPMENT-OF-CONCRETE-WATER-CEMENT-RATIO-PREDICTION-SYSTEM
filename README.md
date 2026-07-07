@@ -22,6 +22,7 @@ iv.	evaluate the performance of the developed system.
 ## Project Structure
 
 ## Import Data
+```
 import pandas as pd
 
 Load the dataset
@@ -30,8 +31,6 @@ data = pd.read_excel(file_path)
 
 Display the first few rows of the dataset
 data.head()
-
-```
 ```
 ## Data Cleaning 
 

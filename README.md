@@ -22,8 +22,6 @@ iv.	evaluate the performance of the developed system.
 ## Project Structure
 
 ## Import Data
-
-
 import pandas as pd
 
 Load the dataset

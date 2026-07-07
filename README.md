@@ -34,6 +34,7 @@ data.head()
 ```
 ## Data Cleaning 
 
+```
 Check for missing values
 missing_values = data.isnull().sum()
 
@@ -42,9 +43,9 @@ data_statistics = data.describe()
 
 missing_values, data_statistics
 ```
-```
-## Extract Features
 
+## Extract Features
+```
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -64,9 +65,9 @@ Display the shapes of the resulting datasets
 
 ```
 
-```
-## Tranning of Datasets
 
+## Tranning of Datasets
+```
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -89,8 +90,9 @@ model.add(Dense(1, activation='linear'))
  Display the summary of the model
 model.summary()
 ```
-```
+
 ## Compile the model
+```
 model.compile(
     loss='mean_squared_error',
     optimizer='adam',
@@ -101,8 +103,9 @@ model.compile(
 model.summary()
 ```
 
-```
+
 ##  Train the model
+```
 history = model.fit(
     X_train, y_train,
     epochs=100,
@@ -112,17 +115,17 @@ history = model.fit(
 
 ```
 
-```
-
 ## Evaluate the model on the test set
+
+```
 test_loss, test_mae = model.evaluate(X_test, y_test)
 print(f'Test Loss: {test_loss}')
 print(f'Test MAE: {test_mae}')
 
 ```
 
-```
 ## Save the model in the recommended Keras format
+```
 model.save('water_cement_ratio_predictor.keras')
 
 Load the model
@@ -138,10 +141,10 @@ prediction = loaded_model.predict(new_data_normalized)
 
 print(f'Predicted Water-Cement Ratio: {prediction[0][0]}')
 ```
-```
+
 
 ## import matplotlib.pyplot as plt
-
+```
 Plot training & validation loss values
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['loss'])
@@ -153,9 +156,10 @@ plt.legend(['Train', 'Validation'], loc='upper right')
 plt.show()
 
 ```
-```
+
 
 ## Make predictions on the test set
+```
 predictions = loaded_model.predict(X_test)
 
 Plot predicted vs actual values
@@ -167,12 +171,11 @@ plt.xlabel('Actual Values')
 plt.ylabel('Predicted Values')
 plt.show()
 
+```
 
-```
-```
 
 ## import matplotlib.pyplot as plt
-
+```
 Make predictions on the test set
 predictions = loaded_model.predict(X_test)
 
@@ -185,9 +188,9 @@ plt.xlabel('Actual Values')
 plt.ylabel('Predicted Values')
 plt.show()
 ```
-```
 
 ## import numpy as np
+```
 import pandas as pd
 
 Assume 'scaler' is the StandardScaler used earlier, and the target was not scaled
@@ -212,9 +215,9 @@ results_rescaled = pd.DataFrame({
 # Display the first few rows of the DataFrame
 results_rescaled.head()
 ```
-```
 
 ## Plot predicted vs actual values
+```
 plt.figure(figsize=(10, 5))
 plt.scatter(y_test, predictions_rescaled, label='Predicted vs Actual')
 plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], 'r', label='Perfect Prediction')
@@ -225,10 +228,9 @@ plt.legend()
 plt.show()
 
 ```
-```
 
 ## import matplotlib.pyplot as plt
-
+```
 Plot training & validation loss values
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['loss'], label='Train Loss')
@@ -239,8 +241,9 @@ plt.ylabel('Loss')
 plt.legend(loc='upper right')
 plt.show()
 ```
-```
+
 ## Plot training & validation MAE values
+```
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['mean_absolute_error'], label='Train MAE')
 plt.plot(history.history['val_mean_absolute_error'], label='Validation MAE')
@@ -250,8 +253,9 @@ plt.ylabel('Mean Absolute Error')
 plt.legend(loc='upper right')
 plt.show()
 ```
-```
+
 ## Calculate residuals
+```
 residuals = y_test - predictions_rescaled
 
 Plot residuals
@@ -263,8 +267,9 @@ plt.xlabel('Actual Values')
 plt.ylabel('Residuals')
 plt.show()
 ```
-```
+
 ## Plot distribution of errors
+```
 plt.figure(figsize=(10, 5))
 plt.hist(residuals, bins=20, edgecolor='k')
 plt.title('Distribution of Prediction Errors')
@@ -272,8 +277,9 @@ plt.xlabel('Error')
 plt.ylabel('Frequency')
 plt.show()
 ```
-```
+
 ## Plot training & validation MAE values
+```
 plt.figure(figsize=(10, 5))
 plt.plot(history.history['mean_absolute_error'], label='Train MAE')
 plt.plot(history.history['val_mean_absolute_error'], label='Validation MAE')
@@ -283,7 +289,7 @@ plt.ylabel('Mean Absolute Error')
 plt.legend(loc='upper right')
 plt.show()
 ```
-```
+
 ## Findings
 
 Following data collection, the data pre-processing phase was essential to prepare the dataset for effective training of the deep neural network model. Key features such as Cement, Sand, Granite, Age, Water, Slump, Density, and Compressive Strength were normalized to ensure a consistent scale across all inputs as shown in Table 3.1. This normalization was critical to prevent any one feature from disproportionately influencing the model’s predictions. The dataset was then split into training (80%) and test (20%) sets, allowing the model to learn from a large portion of the data while keeping a separate portion for evaluating its performance on unseen data. Feature selection was focused on variables that directly impact the water-cement ratio, ensuring the model was trained with the most relevant information. The target variable was the actual water-cement ratio, which the model aimed to predict accurately.
